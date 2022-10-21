@@ -4,7 +4,7 @@ import pygame
 # screen size
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 900
-
+#hello
 # loading images into pygame
 bg_img = pygame.image.load('pictures/bg.jpg')
 bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))  # resize the image to fit the screen

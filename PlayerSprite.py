@@ -6,9 +6,9 @@ import spritesheet
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, screen, image):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
+        self.image = image
         #make sprite green
-        self.image.fill((0, 255, 0))
+
         self.rect = self.image.get_rect()
         #remove black background
 

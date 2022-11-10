@@ -39,6 +39,8 @@ class Game:
         player_spritesheet = spritesheet.SpriteSheet('pictures/Morty.png')
         # morty
         self.player_base_image = player_spritesheet.image_at((-27, -703, 79, 113))
+        #convert to alpha
+
 
         #create player
         self.player = ps.Player(0, 0, 79, 113, self.screen, self.player_base_image)

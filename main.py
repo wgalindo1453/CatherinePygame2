@@ -1,5 +1,6 @@
 import pygame
-
+import spritesheet
+import PlayerSprite as ps
 
 # screen size
 SCREEN_WIDTH = 1000
@@ -9,12 +10,19 @@ SCREEN_HEIGHT = 900
 bg_img = pygame.image.load('pictures/bg.jpg')
 bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))  # resize the image to fit the screen
 
+
+
+
 # color
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+
+
+
+# create a class for the player
 
 
 # game class
@@ -28,6 +36,16 @@ class Game:
         self.running = True  # game loop
         self.font = pygame.font.SysFont('comic sans', 16)  # create font
         self.i = 0
+        player_spritesheet = spritesheet.SpriteSheet('pictures/Morty.png')
+        # morty
+        self.player_base_image = player_spritesheet.image_at((-27, -703, 79, 113))
+
+        #create player
+        self.player = ps.Player(0, 0, 79, 113, self.screen, self.player_base_image)
+
+        #create a group for the player
+        self.player_group = pygame.sprite.Group()
+        self.player_group.add(self.player)
 
     def run(self):
         while self.running:
@@ -50,9 +68,11 @@ class Game:
 
     def draw(self):
         # set background to background image and draw it
-        self.screen.blit(bg_img, (0, 0))
-
+       #set screen background white
+        self.screen.fill(WHITE)
+        self.player_group.draw(self.screen)
         pygame.display.flip()  # update a portion of the screen
+
 
     def quit(self):
         pygame.quit()

@@ -4,14 +4,19 @@ import spritesheet
 
 # create a class for the player
 class Player(pygame.sprite.Sprite):
-    def init(self, x, y, width, height, screen, image):
-        pygame.sprite.Sprite.init(self)
-        self.image = pygame.Surface((50, 50))
-        self.image.fill((255, 0, 0))
+    def __init__(self, x, y, width, height, screen, image):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
         self.rect = self.image.get_rect()
+        #remove black background
+        self.image.set_colorkey((0, 0, 0))
+
         self.rect.x = x
         self.rect.y = y
         self.speed = 5
+        self.screen = screen
+
+
 
 
 

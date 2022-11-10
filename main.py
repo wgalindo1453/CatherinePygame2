@@ -38,13 +38,16 @@ class Game:
         self.i = 0
         player_spritesheet = spritesheet.SpriteSheet('pictures/Morty.png')
         # morty
-        self.player_base_image = player_spritesheet.image_at((-27, -703, 79, 113))
+        self.player_base_image = player_spritesheet.image_at((27, 703, 79, 113)) #dont forget to remove negative sign
+        self.player_base_image.convert_alpha()
+
 
         #create player
-        self.player = ps.Player(0, 0, 79, 113, self.screen, self.player_base_image)
-
-        #create a group for the player
         self.player_group = pygame.sprite.Group()
+        self.player = ps.Player(0, 0, 79, 113, self.screen, self.player_base_image)
+        #self.player = ps.Player(0, 0, 105, 109, self.screen, self.player1_img)
+        #create a group for the player
+
         self.player_group.add(self.player)
 
     def run(self):
@@ -68,8 +71,7 @@ class Game:
 
     def draw(self):
         # set background to background image and draw it
-       #set screen background white
-        self.screen.fill(WHITE)
+        self.screen.blit(bg_img, (0, 0))
         self.player_group.draw(self.screen)
         pygame.display.flip()  # update a portion of the screen
 

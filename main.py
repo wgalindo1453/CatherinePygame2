@@ -3,8 +3,8 @@ import spritesheet
 import playersprite as ps
 
 # screen size
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 900
+SCREEN_WIDTH = 1000 #500
+SCREEN_HEIGHT = 900 #450
 # hello
 # loading images into pygame
 bg_img = pygame.image.load('pictures/bg.jpg')
@@ -39,7 +39,7 @@ class Game:
 
         # create player
         self.player_group = pygame.sprite.Group()
-        self.player = ps.Player(0, 0, 79, 113, self.screen, self.player_base_image)
+        self.player = ps.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 79, 113, self.screen, self.player_base_image)
         # self.player = ps.Player(0, 0, 105, 109, self.screen, self.player1_img)
         # create a group for the player
 
@@ -62,8 +62,8 @@ class Game:
     # Updates the game state such as player position and enemy position
     # This is where the game logic goes
     def update(self):
-        # self.player_group.update()
-        pass
+        self.player_group.update()
+
 
     def draw(self):
         # set background to background image and draw it

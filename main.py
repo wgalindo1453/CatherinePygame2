@@ -3,12 +3,13 @@ import spritesheet
 import playersprite as ps
 
 # screen size
-SCREEN_WIDTH = 1000 #500
-SCREEN_HEIGHT = 900 #450
+SCREEN_WIDTH = 1000  # 500
+SCREEN_HEIGHT = 900  # 450
 # hello
 # loading images into pygame
 bg_img = pygame.image.load('pictures/bg.jpg')
-bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))  # resize the image to fit the screen
+# resize the image to fit the screen
+bg_img = pygame.transform.scale(bg_img, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # color
 BLACK = (0, 0, 0)
@@ -36,10 +37,26 @@ class Game:
         # morty
         self.player_base_image = player_spritesheet.image_at((27, 703, 79, 113))  # dont forget to remove negative sign
         self.player_base_image.convert_alpha()
+        self.left_images = []  # list of images for left and right movement
+        self.player_left_image1 = player_spritesheet.image_at((9, 877, 93, 108))
+        self.player_left_image2 = player_spritesheet.image_at((138, 876, 92, 108))
+        self.player_left_image3 = player_spritesheet.image_at((267, 877, 93, 108))
+        self.player_left_image4 = player_spritesheet.image_at((395, 876, 95, 109))
+        self.left_images = [self.player_left_image1, self.player_left_image2,
+                            self.player_left_image3, self.player_left_image4]
+        #MORTY UP IMAGES
+        self.up_images = []
+        self.player_right_image1 = player_spritesheet.image_at((28, 1042, 78, 109))
+        self.player_right_image2 = player_spritesheet.image_at((157, 1042, 78, 108))
+        self.player_right_image3 = player_spritesheet.image_at((286, 1042, 78, 109))
+        self.player_right_image4 = player_spritesheet.image_at((415, 1042, 78, 109))
+        self.up_images = [self.player_right_image1, self.player_right_image2,
+                          self.player_right_image3, self.player_right_image4]
 
         # create player
         self.player_group = pygame.sprite.Group()
-        self.player = ps.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 79, 113, self.screen, self.player_base_image)
+        self.player = ps.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 79, 113, self.screen, self.player_base_image,
+                                self.left_images, self.up_images)
         # self.player = ps.Player(0, 0, 105, 109, self.screen, self.player1_img)
         # create a group for the player
 
@@ -63,7 +80,6 @@ class Game:
     # This is where the game logic goes
     def update(self):
         self.player_group.update()
-
 
     def draw(self):
         # set background to background image and draw it

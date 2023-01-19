@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.screen = screen
         self.left_images = left_images_list
         self.up_images = up_images_list
-        self.image_position = 0
+        self.image_index = 0
 
         # create update function that allows the player to move
 
@@ -40,25 +40,27 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT]:
             self.rect.x += self.speed
             flipped_images = self.flip_images(self.left_images)
-            self.image = flipped_images[0]
+            self.image_index = self.image_index + 1
+            if self.image_index > 3:
+                self.image_index = 0
 
+            self.image = flipped_images[self.image_index]
 
         # if the left key is pressed move the player left
         if keys[pygame.K_LEFT]:
-            print(self.image_position)
-            self.rect.x -= self.speed
-            if self.image == self.left_images[3]:
-                self.image_position = 0
-            self.image_position = self.image_position + 1
-            self.image = self.left_images[self.image_position]
 
-
+            print(self.image_index)  # print the image index
+            self.rect.x -= self.speed  # move the player left
+            self.image_index = self.image_index + 1
+            if self.image_index > 3:  # if the image is the last image in the list
+                self.image_index = 0  # set the image index to 0
+                # increment the image index
+            self.image = self.left_images[self.image_index]  # set the image to the image at the image index
 
         # if the up key is pressed move the player up
         if keys[pygame.K_UP]:
             self.rect.y -= self.speed
             self.image = self.up_images[0]
-
 
         # if the down key is pressed move the player down
         if keys[pygame.K_DOWN]:

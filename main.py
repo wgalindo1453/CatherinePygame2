@@ -1,7 +1,7 @@
 import pygame
 import spritesheet
 import playersprite as ps
-
+import objectsprite as os
 # screen size
 SCREEN_WIDTH = 1000  # 500
 SCREEN_HEIGHT = 900  # 450
@@ -57,10 +57,14 @@ class Game:
         self.player_group = pygame.sprite.Group()
         self.player = ps.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 79, 113, self.screen, self.player_base_image,
                                 self.left_images, self.up_images)
+
+        self.object_group = pygame.sprite.Group()
+        self.test_object = os.ObjectSprite(self.player_base_image, 100, 800)
         # self.player = ps.Player(0, 0, 105, 109, self.screen, self.player1_img)
         # create a group for the player
 
         self.player_group.add(self.player)
+        self.object_group.add(self.test_object)
 
     def run(self):
         while self.running:
@@ -84,7 +88,8 @@ class Game:
     def draw(self):
         # set background to background image and draw it
         self.screen.blit(bg_img, (0, 0))
-        self.player_group.draw(self.screen)
+        self.player_group.draw(self.screen) # draw player
+        self.object_group.draw(self.screen) # draw object
         pygame.display.flip()  # update a portion of the screen
 
     def quit(self):

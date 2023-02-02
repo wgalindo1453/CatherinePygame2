@@ -20,6 +20,8 @@ class Player(pygame.sprite.Sprite):
         self.left_images = left_images_list
         self.up_images = up_images_list
         self.image_index = 0
+        self.jump = False  # boolean to check if the player is jumping
+        self.jump_level = 10  # how high the player can jump
 
         # create update function that allows the player to move
 
@@ -66,6 +68,17 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_DOWN]:
             self.rect.y += self.speed
             self.image = self.base_image
+        # TODO: add code to make the player jump when the space bar is pressed
+        if self.jump == False:  # if the player is not jumping
+            if keys[pygame.K_SPACE]:  # if the space bar is pressed
+                self.jump = True  # set the jump boolean to true
+        else:  # if the player is jumping
+            if self.jump_level >= -10:  # if the jump level is greater than or equal to -10
+                self.rect.y -= (self.jump_level * abs(self.jump_level)) * 0.5  # move the player up or down
+                self.jump_level -= 1  # decrement the jump level
+            else:
+                self.jump = False # set the jump boolean to false
+                self.jump_level = 10 # set the jump level to 10
 
         # if the player goes off the screen, move them back on
         if self.rect.right > self.screenwidth:  # if the player goes off the right side of the screen

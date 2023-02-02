@@ -55,6 +55,7 @@ class Game:
 
         # create player
         self.player_group = pygame.sprite.Group()
+        #TODO: change the player's x and y position to bottom left corner starting position
         self.player = ps.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 79, 113, self.screen, self.player_base_image,
                                 self.left_images, self.up_images)
 

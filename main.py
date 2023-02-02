@@ -56,7 +56,7 @@ class Game:
         # create player
         self.player_group = pygame.sprite.Group()
         #TODO: change the player's x and y position to bottom left corner starting position
-        self.player = ps.Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 79, 113, self.screen, self.player_base_image,
+        self.player = ps.Player(0, SCREEN_HEIGHT, 79, 113, self.screen, self.player_base_image,
                                 self.left_images, self.up_images)
 
         self.object_group = pygame.sprite.Group()
@@ -71,7 +71,6 @@ class Game:
         while self.running:
             self.clock.tick(60)
             self.events()
-
             self.update()
             self.draw()
 
@@ -81,10 +80,17 @@ class Game:
             if event.type == pygame.QUIT:  # if user clicks X button
                 self.running = False
 
+
+
+
+
+
+
     # Updates the game state such as player position and enemy position
     # This is where the game logic goes
     def update(self):
         self.player_group.update()
+        self.player.gravity()
 
     def draw(self):
         # set background to background image and draw it

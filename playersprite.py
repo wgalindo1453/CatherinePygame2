@@ -39,9 +39,49 @@ class Player(pygame.sprite.Sprite):
 
     def gravity(self):
         if self.rect.y < self.screenheight - self.rect.height: # if the player is not on the ground
-            self.rect.y += 1  # add 1 to the y position of the player to simulate gravity
+            self.rect.y += 3  # add 1 to the y position of the player to simulate gravity
+
+    # create a function to handle collision detection with the object group
+    # def collisiondetection(self, object_group):
+    #     if pygame.sprite.spritecollide(self, object_group, False):
+    #         print("Collision detected")
+    #         #find the object that the player collided with
+    #         for object in object_group:
+    #             if self.rect.colliderect(object.rect):
+    #                 print("Collision detected with object: " + object.name)
+    #                 if object.name == "platform":
+    #
+    #                     print("Collision detected with platform")
+    #                 elif object.name == "spike":
+    #                     print("Collision detected with spike")
+    #                 elif object.name == "coin":
+    #                     print("Collision detected with coin")
+    #                     object_group.remove(object)
+    #                     print("Coin removed")
+    #                 elif object.name == "door":
+    #                     print("Collision detected with door")
+    def collisiondetection(self, object_group):
+        for object in object_group:
+            if self.rect.colliderect(object.rect):
+                if object.name == "platform":
+                    # Check the direction of the player's movement
+                    if self.rect.bottom < object.rect.top:# if bottom of player is above top of platform
+                        # Player is coming from above, move player on top of platform
+                        self.rect.bottom = object.rect.top
+                    elif self.rect.top > object.rect.bottom:# if top of player is below bottom of platform
+                        # Player is coming from below, move player below platform
+                        self.rect.top = object.rect.bottom
+                    elif self.rect.centerx < object.rect.centerx:# if center of player is to the left of center of platform
+                        # Player was coming from the left, move player to right of platform
+                        self.rect.right = object.rect.left
+                    elif self.rect.centerx > object.rect.centerx:
+                        # Player was coming from the right, move player to left of platform
+                        self.rect.left = object.rect.right
+
+
 
     def update(self):
+
 
         self.image.set_colorkey((0, 0, 0))
         # get the keys pressed
@@ -53,7 +93,6 @@ class Player(pygame.sprite.Sprite):
             self.image_index = self.image_index + 1
             if self.image_index > 3:
                 self.image_index = 0
-
             self.image = flipped_images[self.image_index]
 
         # if the left key is pressed move the player left
@@ -68,9 +107,9 @@ class Player(pygame.sprite.Sprite):
             self.image = self.left_images[self.image_index]  # set the image to the image at the image index
 
         # if the up key is pressed move the player up
-        if keys[pygame.K_UP]:
-            self.rect.y -= self.speed
-            self.image = self.up_images[0]
+        # if keys[pygame.K_UP]:
+        #     self.rect.y -= self.speed
+        #     self.image = self.up_images[0]
 
         # if the down key is pressed move the player down
         if keys[pygame.K_DOWN]:
